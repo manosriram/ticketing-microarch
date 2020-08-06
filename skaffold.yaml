@@ -1,12 +1,18 @@
 apiVersion: skaffold/v2beta6
 kind: Config
-metadata:
-  name: ticketing-microarch
-build:
-  artifacts:
-  - image: manosriram/auth
-    context: auth
 deploy:
   kubectl:
     manifests:
-    - infra/k8s/auth-depl.yaml
+      - ./infra/k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: manosriram/auth
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
