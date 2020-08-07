@@ -4,7 +4,7 @@ import { CustomError } from '../errors/custom-error';
 /*
     Error-Handler to handle erros consistently.
 */
-export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
+export const errorHandler = async (err: Error, req: Request, res: Response, next: NextFunction) => {
     if (err instanceof CustomError) {
         return res.status(err.statusCode).send({
             errors: err.serializeErrors()

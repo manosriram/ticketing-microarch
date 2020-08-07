@@ -1,4 +1,7 @@
 import express from 'express';
+import 'express-async-errors';
+import mongoose from 'mongoose';
+
 import { currentUserRouter } from "./routes/current-user";
 import { signInRouter } from "./routes/signin";
 import { signUpRouter } from "./routes/signup";
@@ -14,12 +17,28 @@ app.use(signInRouter);
 app.use(signOutRouter);
 app.use(signUpRouter);
 
-app.all("*", () => {
+app.all("*", async () => {
     throw new NotFoundError();
 });
 
 app.use(errorHandler);
 
-app.listen(3000, () => {
-    console.log("Listening on 3000");
-});
+// Mongoose Handler
+const start = async () => {
+    try {
+        await mongoose.connect('mongodb://auth-mongo-srv:27017/auth', {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useCreateIndex: true
+        });
+        console.log("Connected to MongoDB");
+    } catch (err) {
+        console.log(err);
+    }
+
+    app.listen(3000, () => {
+        console.log("Listening on 3000");
+    });
+};
+
+start();
