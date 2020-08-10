@@ -12,6 +12,6 @@ export const errorHandler = async (err: Error, req: Request, res: Response, next
     }
 
     res.status(400).send({
-        errors: [{ message: err.message }]
+        errors: [{ message: 'Something went wrong' }]
     });
 };
