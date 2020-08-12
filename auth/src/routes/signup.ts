@@ -36,9 +36,8 @@ router.post("/api/users/signup", [
     req.session = {
         jwt: userJwt
     };
-    req.session.save();
 
-    res.status(201).json(user);
+    res.status(201).send(user);
 });
 
 export { router as signUpRouter };
