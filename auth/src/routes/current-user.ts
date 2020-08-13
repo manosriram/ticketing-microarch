@@ -1,7 +1,6 @@
 import express from 'express';
-import jwt from 'jsonwebtoken';
-import { currentUser } from '../middlewares/current-user';
-import { requireAuth } from '../middlewares/require-auth';
+import { currentUser } from '@microarch-ticketing/common';
+import { requireAuth } from '@microarch-ticketing/common';
 const router = express.Router();
 
 router.get("/api/users/currentUser", currentUser, requireAuth, (req, res) => {
