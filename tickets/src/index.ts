@@ -6,11 +6,11 @@ const start = async () => {
     if (!process.env.JWT_KEY) {
         throw new Error("JWT_KEY must be defined");
     }
-    if (!process.env.AUTH_MONGO_URI) {
-        throw new Error("Auth Mongo Uri must be defined");
+    if (!process.env.TICKETS_MONGO_URI) {
+        throw new Error("Tickets Mongo Uri must be defined.");
     }
     try {
-        await mongoose.connect(process.env.AUTH_MONGO_URI, {
+        await mongoose.connect(process.env.TICKETS_MONGO_URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true
