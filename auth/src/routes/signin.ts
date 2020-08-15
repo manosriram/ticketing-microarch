@@ -36,8 +36,7 @@ router.post("/api/users/signin", [
     req.session = {
         jwt: userJwt
     };
-    req.session.save();
-    res.status(200).json(existingUser);
+    res.send(existingUser);
 });
 
 export { router as signInRouter };
