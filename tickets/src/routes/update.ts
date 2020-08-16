@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
-import { ValidateRequest, NotFoundError, requireAuth, NotAuthorizedError } from '@microarch-ticketing/common';
+import { validateRequest, NotFoundError, requireAuth, NotAuthorizedError } from '@microarch-ticketing/common';
 import { Ticket } from '../../models/ticket';
 
 const router = express.Router();
