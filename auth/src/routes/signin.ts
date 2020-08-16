@@ -1,4 +1,4 @@
-import express, { Response, Request } from 'express';
+import express, { Response, Request, NextFunction } from 'express';
 import { body } from 'express-validator';
 import { validateRequest, BadRequestError } from '@microarch-ticketing/common';
 import { User } from '../models/user';
@@ -14,7 +14,8 @@ router.post("/api/users/signin", [
     .trim()
     .notEmpty()
     .withMessage('You must supply a password')
-], validateRequest, async (req: Request, res: Response) => {
+], validateRequest, async (req: Request, res: Response, next: NextFunction) => {
+    try {
     const { email, password } = req.body;
 
     const existingUser = await User.findOne({ email });
@@ -36,7 +37,11 @@ router.post("/api/users/signin", [
     req.session = {
         jwt: userJwt
     };
-    res.send(existingUser);
+    req.session.save();
+    res.status(200).send(existingUser);
+    } catch (err) {
+        next(err);
+    }
 });
 
 export { router as signInRouter };
